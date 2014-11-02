@@ -9,113 +9,91 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace EuclideanAlgorithm
 {
     public partial class Form1 : Form
     {
         public static int numIterations;
-        Boolean alternativeDiagramm = true;
-        Boolean clearDiagramm = false;
+        private static ulong t;
 
         public Form1()
         {
             InitializeComponent();
 
             comboBox_Method.SelectedIndex = 0;  //Sub
-            diagramComboBox.SelectedIndex = 0;
         }
 
         private void button_getGCD_Click(object sender, EventArgs e)
         {
-            try
+            ulong l_a = Convert.ToUInt64(numericUpDown_a.Value);
+            ulong l_b = Convert.ToUInt64(numericUpDown_b.Value);
+
+            Stopwatch timer = new Stopwatch();   //other way to initialize: Stopwatch timer = Stopwatch.StartNew();
+
+            timer.Start();
+
+            ulong gcd;
+
+            numIterations = 0;
+
+            switch (comboBox_Method.SelectedIndex)
             {
-                ulong l_a = Convert.ToUInt64(numericUpDown_a.Value);
-                ulong l_b = Convert.ToUInt64(numericUpDown_b.Value);
-
-                Stopwatch timer = new Stopwatch();   //other way to initialize: Stopwatch timer = Stopwatch.StartNew();
-
-                timer.Start();
-
-                ulong gcd;
-
-                numIterations = 0;
-
-                switch (comboBox_Method.SelectedIndex)
-                {
-                    case 0:
-                        gcd = getGCDSub(l_a, l_b);
-                        textBox_Results.AppendText("\r\n Subtraction Method: GCD=" + gcd.ToString());
-                        break;
-                    case 1:
-                        gcd = getGCDMod(l_a, l_b);
-                        textBox_Results.AppendText("\r\n Modulo Method: GCD=" + gcd.ToString());
-                        break;
-                    case 2:
-                        gcd = getGCDPrimeFactorization(l_a, l_b);
-                        textBox_Results.AppendText("\r\n PrimeFactorization Method: GCD=" + gcd.ToString());
-                        break;
-                    default:
-                        return;
-                }
-
-
-               
-
-                timer.Stop();
-
-                textBox_Results.AppendText("\r\n CPU-time(ticks):" + timer.ElapsedTicks);
-                textBox_Results.AppendText("\r\n CPU-time(ms):" + timer.ElapsedMilliseconds);
-                textBox_Results.AppendText("\r\n Number of iterations:" + numIterations);
+                case 0:
+                    gcd = getGCDSub(l_a, l_b);
+                    textBox_Results.AppendText("\r\n Subtraction Method: GCD=" + gcd.ToString());
+                    break;
+                case 1:
+                    gcd = getGCDMod(l_a, l_b);
+                    textBox_Results.AppendText("\r\n Modulo Method: GCD=" + gcd.ToString());
+                    break;
+                default:
+                    return;
             }
-            catch (Exception ex)
-            {
-                textBox_Results.AppendText("Your input is wasn't valid!");
-                Console.WriteLine(ex);
-            }
+
+            timer.Stop();
+
+            textBox_Results.AppendText("\r\n CPU-time(ticks):" + timer.ElapsedTicks);
+            textBox_Results.AppendText("\r\n CPU-time(ms):" + timer.ElapsedMilliseconds);
+            textBox_Results.AppendText("\r\n Number of iterations:" + numIterations);
         }
 
         public static ulong getGCDMod(ulong a, ulong b)
         {
-
+			//ToDo: your implementation
             while (b != 0)
             {
-                numIterations++;
                 ulong t = b;
                 b = a % b;
                 a = t;
             }
+
             return a;
         }
 
         public static List<ulong> getPrimeNumbers(ulong n)
         {
-           
             List<ulong> primeNumbers = new List<ulong>();
             for (ulong i = 2; i <= n; i++)
             {
                 numIterations++;
-                while (n % i == 0 )
+                while (n % i == 0)
                 {
-                    
                     primeNumbers.Add(i);
                     n /= i;
-                   
-
                 }
             }
-
             return primeNumbers;
         }
 
         public static ulong getGCDPrimeFactorization(ulong a, ulong b)
         {
-            
             List<ulong> primeNumbersA = getPrimeNumbers(a);
             List<ulong> primeNumbersB = getPrimeNumbers(b);
             List<ulong> commonFactors = new List<ulong>();
-            foreach (ulong _a in primeNumbersA){
+
+            foreach (ulong _a in primeNumbersA)
+            {
                 foreach (ulong _b in primeNumbersB)
                 {
                     numIterations++;
@@ -135,15 +113,10 @@ namespace EuclideanAlgorithm
                 x *= factor;
             }
             return x;
-            
         }
 
         public static ulong getGCDSub(ulong a, ulong b)
         {
-
-         
-
-
             if (a == 0)
                 return b;
 
@@ -164,199 +137,86 @@ namespace EuclideanAlgorithm
         /** LOOPS */
         private void button_loops_Click(object sender, EventArgs e)
         {
-            try
+            ulong l_a = Convert.ToUInt64(numericUpDown_a.Value);
+            ulong l_b = Convert.ToUInt64(numericUpDown_b.Value);
+
+            List<long> listCPUTimes = new List<long>();
+
+            int numOfLoops = (int)numericUpDown_loops.Value;
+
+            Stopwatch timer = new Stopwatch();   //other way to initialize: Stopwatch timer = Stopwatch.StartNew();
+
+            for (int i = 0; i < numOfLoops; i++)
             {
-                int a = Convert.ToInt32(numericUpDown_a.Value);
-                int b = Convert.ToInt32(numericUpDown_b.Value);
-                int numOfLoops = (int)numericUpDown_loops.Value;
-                
-                ulong l_a = Convert.ToUInt64(a);
-                ulong l_b = Convert.ToUInt64(b);
+                timer.Reset();
+                timer.Start();
 
-                List<ulong> randomListA = genRandomList(a, b, numOfLoops);
-                List<ulong> randomListB = genRandomList(a, b, numOfLoops);
-
-                List<long> listCPUTimes = new List<long>();
-                List<int> stepList = new List<int>();
-               
-                Stopwatch timer = new Stopwatch();   //other way to initialize: Stopwatch timer = Stopwatch.StartNew();
-                String mode = "";
-                for (int i = 0; i < numOfLoops; i++)
-                {
-                    numIterations = 0;
-                    timer.Reset();
-                    timer.Start();
-                    ulong _a = randomListA[i];
-                    ulong _b = randomListB[i];
-                    
-
-                    switch (comboBox_Method.SelectedIndex)
-                    {
-                        case 0:
-                            getGCDSub(_a, _b);
-                            mode = "Subtraction";
-                            break;
-                        case 1:
-                            getGCDMod(_a, _b);
-                            mode = "Modulo";
-                            break;
-                        case 2:
-                            getGCDPrimeFactorization(_a, _b);
-                            mode = "PrimeFactors";
-                            break;
-                        default:
-                            return;
-                    }
-
-                    timer.Stop();
-                    listCPUTimes.Add(timer.ElapsedTicks);
-                    stepList.Add(numIterations);
-                    textBox_Results.AppendText("\r\n Iteration " + i.ToString() + ", CPU-time(ticks):" + timer.ElapsedTicks + ", Steps:" +  numIterations);
-                }
-
-
-                
-                switch (diagramComboBox.SelectedIndex)
+                switch (comboBox_Method.SelectedIndex)
                 {
                     case 0:
-                     
-                        alternativeDiagramm = true;
+                        getGCDSub(l_a, l_b);
                         break;
                     case 1:
-                       
-                        alternativeDiagramm = false;
+                        getGCDMod(l_a, l_b);
                         break;
-
                     default:
                         return;
                 }
 
-
-
-                //Get Mean and SD
-                double meanCPUTicks = getMean(listCPUTimes);
-                double varianceCPUTicks = getVariance(listCPUTimes);
-                double standardDeviationCPUTicks = Math.Sqrt(varianceCPUTicks);
-
-                textBox_Results.AppendText("\r\n Mean CPU-time(ticks):" + meanCPUTicks);
-                textBox_Results.AppendText("\r\n Standard Deviation CPU-time(ticks):" + standardDeviationCPUTicks);
-
-
-                //add data to chart
-                String name = "StandardDeviation for\n"+mode;
-
-                if (clearDiagramm)
-                {
-                    chart1.Series.Clear();
-                }
-
-
-                if (!chart1.Series.IsUniqueName(mode) & alternativeDiagramm)
-                {
-                    chart1.Series.Remove(chart1.Series[mode]);
-                    chart1.Series.Remove(chart1.Series[name]);
-                }
-                else if (!chart1.Series.IsUniqueName(mode))
-                {
-                    chart1.Series.Remove(chart1.Series[mode]);
-                }
-
-        
-                chart1.Series.Add(mode);
-               
-                chart1.Series[mode].ChartType = SeriesChartType.Point;
-               
-                for (int i = 0; i < numOfLoops; i++)
-                {
-                    ulong x = (randomListA[i]+randomListB[i])/2;
-                  
-                    long y;
-                    if (alternativeDiagramm)
-                        y = listCPUTimes[i];
-                    else
-                        y = stepList[i];
-                    chart1.Series[mode].Points.AddXY(Convert.ToInt32(x),y);
-                
-                }
-                if (alternativeDiagramm)
-                {
-                    chart1.Series.Add(name);
-                    chart1.Series[name].ChartType = SeriesChartType.ErrorBar;
-                    chart1.Series[name]["ErrorBarSeries"] = mode + ":Y1";
-                    chart1.Series[name]["ErrorBarType"] = "StandardDeviation";
-                }
-
-                clearDiagramm = false;
-                
+                timer.Stop();
+                listCPUTimes.Add(timer.ElapsedTicks);
+                textBox_Results.AppendText("\r\n Iteration " + i.ToString() + ", CPU-time(ticks):" + timer.ElapsedTicks);
             }
-            catch (ArgumentOutOfRangeException ex)
+
+            //Get Mean and SD
+            double meanCPUTicks = getMean(listCPUTimes);
+            double varianceCPUTicks = getVariance(listCPUTimes);
+            double standardDeviationCPUTicks = Math.Sqrt(varianceCPUTicks);
+
+            textBox_Results.AppendText("\r\n Mean CPU-time(ticks):" + meanCPUTicks);
+            textBox_Results.AppendText("\r\n Standard Deviation CPU-time(ticks):" + standardDeviationCPUTicks);
+
+            //Get Median
+			//ToDo: your implementation
+            
+            //Get Histogram            
+			//ToDo: your implementation
+            long startHisto = 0; //get min value
+            long endHisto = 0; //get max value
+
+            List<int> histo = getHistogram(startHisto, endHisto, listCPUTimes);
+
+            //Get Mode
+			//ToDo: your implementation
+
+            
+
+            //show normalized histogram, probability density of CPU-time (ticks)
+            double[] histoNormalized = getNormalizedHistogram(startHisto, endHisto, listCPUTimes);
+            textBox_Results.AppendText("\r\n Normalized histogram:");
+            for (int i = 0; i < histoNormalized.Count(); i++)
+                textBox_Results.AppendText("\r\n" + i.ToString() + ": " + histoNormalized[i]);
+
+            //add data to chart
+            chart1.Series[0].Points.Clear();
+            
+            //ToDo: your implementation
+            double cpuTicksHistoCounter=0;
+            
+            foreach (double probCPUTicks in histoNormalized)
             {
-                textBox_Results.AppendText("\n"+ex.Message);
-                
+                //add datapoint X,Y to chart
+                chart1.Series[0].Points.AddXY(cpuTicksHistoCounter, probCPUTicks);
+
+                //compute next counter
+                //ToDo: your implementation
             }
-
-            catch (Exception ex)
-            {
-                textBox_Results.AppendText("\nYour input is wasn't valid!");
-                Console.WriteLine("\n"+ex);
-                
-            }
-        }
-
-        private static List<ulong> generateFactors(List<ulong> a, List<ulong> b){
-            List<ulong> list = new List<ulong>();
-            for(int i= 0; i < a.Count; i++){
-
-                list[i] = (a[i] + b[i]) / 2;
-            }
-
-            return list;
-        }
-        
-
-        
-
-        private static long getMax(List<long> listCPUTimes)
-        {
-            long max = 0;
-            foreach (long t in listCPUTimes)
-            {
-                if (t > max)
-                {
-                    max = t;
-                }
-            }
-            return max;
-        }
-
-        private static long getMin(List<long> listCPUTimes)
-        {
-            long min = long.MaxValue;
-            foreach (long t in listCPUTimes)
-            {
-                if (t < min)
-                {
-                    min = t;
-                }
-            }
-            return min;
-        }
-
-
-        private static long getMedian(List<long> listCPUTimes)
-        {
-            long d = 0;
-            foreach (long t in listCPUTimes)
-            {
-                d += t;
-            }
-            return d / listCPUTimes.Count;
-
         }
 
         public static double getMean(List<long> resultset)
         {
-            ulong number = Convert.ToUInt64(resultset.Count);
+            //ToDo: your implementation
+			   ulong number = Convert.ToUInt64(resultset.Count);
             ulong x = 0;
             foreach (ulong time in resultset)
             {
@@ -366,72 +226,57 @@ namespace EuclideanAlgorithm
 			return x/number;
         }
 
+        }
+
         public static double getVariance(List<long> resultSet)
         {
+            //ToDo: your implementation
             ulong maxValue = 0;
             ulong secondValue = 0;
 
-            foreach (ulong t1 in resultSet){
-                if(t1 > maxValue){
+            foreach (ulong t1 in resultSet)
+            {
+                if (t1 > maxValue)
+                {
                     secondValue = maxValue;
                     maxValue = t1;
                 }
             }
 
-			return maxValue-secondValue;
+            return maxValue - secondValue;
         }
 
-        public static List<int> getHistogram(double start, double end, List<long> data)
+        public static List<double> getHistogram(double start, double end,int num_bins, List<long> data)
         {
 			//ToDo: your implementation
-            int num_bins = 1;
+            List<double> histo = new List<double>();
+            int bin_size = (int)((end - start) / num_bins);
 
-            List<int> histo = new List<int>(num_bins);
-
-            return histo;
-        }
-
-        public static List<ulong> genRandomList(int min, int max, int count)
-        {
-            List<ulong> randomList = new List<ulong>();
-            Random random = new Random();
-            for (int i = 0; i < count; ++i)
+            for (int k = 0; k < data.Count; k++)
             {
-                randomList.Add(Convert.ToUInt64( random.Next(min, max + 1)));
+                for (int i = 0; i < num_bins; i++)
+                {
+                    if (data[k] >= (start + i * bin_size) && data[k] < (end + (i + 1) * bin_size))
+                        histo[i]++;
+                }
             }
-            return randomList;
+            for (int k = 0; k < num_bins; k++)
+            {
+                histo[k] /= (double)num_data;
+            }
+            return histo;
         }
 
         public static double[] getNormalizedHistogram(double start, double end, List<long> data)
         {
-                    
+			//ToDo: your implementation
             int num_bins = (int)Math.Round(Math.Sqrt(data.Count));
 
             double[] histo = new double[num_bins];
 
-           
             
-
-
             return histo;
         }
 
-        private void numericUpDown_b_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void diagramComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            clearDiagramm = true;
-        }
-
-        private void clearD_Click(object sender, EventArgs e)
-        {
-            chart1.Series.Clear();
-     
-
-        }
-
-     }
+    }
 }

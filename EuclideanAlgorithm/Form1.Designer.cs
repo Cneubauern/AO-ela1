@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.numericUpDown_a = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown_b = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -43,8 +43,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.button_getGCD = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.diagramComboBox = new System.Windows.Forms.ComboBox();
-            this.clearD = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_b)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_loops)).BeginInit();
@@ -53,7 +51,8 @@
             // 
             // numericUpDown_a
             // 
-            this.numericUpDown_a.Location = new System.Drawing.Point(66, 16);
+            this.numericUpDown_a.Location = new System.Drawing.Point(99, 25);
+            this.numericUpDown_a.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDown_a.Maximum = new decimal(new int[] {
             1569325056,
             23283064,
@@ -65,17 +64,18 @@
             0,
             0});
             this.numericUpDown_a.Name = "numericUpDown_a";
-            this.numericUpDown_a.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown_a.Size = new System.Drawing.Size(180, 26);
             this.numericUpDown_a.TabIndex = 1;
             this.numericUpDown_a.Value = new decimal(new int[] {
-            2458,
+            24,
             0,
             0,
             0});
             // 
             // numericUpDown_b
             // 
-            this.numericUpDown_b.Location = new System.Drawing.Point(66, 42);
+            this.numericUpDown_b.Location = new System.Drawing.Point(99, 65);
+            this.numericUpDown_b.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDown_b.Maximum = new decimal(new int[] {
             1569325056,
             23283064,
@@ -87,47 +87,50 @@
             0,
             0});
             this.numericUpDown_b.Name = "numericUpDown_b";
-            this.numericUpDown_b.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown_b.Size = new System.Drawing.Size(180, 26);
             this.numericUpDown_b.TabIndex = 2;
             this.numericUpDown_b.Value = new decimal(new int[] {
-            3544,
+            9,
             0,
             0,
             0});
-            this.numericUpDown_b.ValueChanged += new System.EventHandler(this.numericUpDown_b_ValueChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(47, 16);
+            this.label1.Location = new System.Drawing.Point(70, 25);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(19, 13);
+            this.label1.Size = new System.Drawing.Size(27, 20);
             this.label1.TabIndex = 3;
             this.label1.Text = "a=";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(47, 49);
+            this.label2.Location = new System.Drawing.Point(70, 75);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(19, 13);
+            this.label2.Size = new System.Drawing.Size(27, 20);
             this.label2.TabIndex = 4;
             this.label2.Text = "b=";
             // 
             // textBox_Results
             // 
-            this.textBox_Results.Location = new System.Drawing.Point(12, 158);
+            this.textBox_Results.Location = new System.Drawing.Point(18, 191);
+            this.textBox_Results.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox_Results.Multiline = true;
             this.textBox_Results.Name = "textBox_Results";
             this.textBox_Results.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox_Results.Size = new System.Drawing.Size(338, 450);
+            this.textBox_Results.Size = new System.Drawing.Size(505, 392);
             this.textBox_Results.TabIndex = 6;
             // 
             // button_loops
             // 
-            this.button_loops.Location = new System.Drawing.Point(207, 38);
+            this.button_loops.Location = new System.Drawing.Point(311, 59);
+            this.button_loops.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button_loops.Name = "button_loops";
-            this.button_loops.Size = new System.Drawing.Size(135, 77);
+            this.button_loops.Size = new System.Drawing.Size(202, 119);
             this.button_loops.TabIndex = 7;
             this.button_loops.Text = "Get GCD over loops";
             this.button_loops.UseVisualStyleBackColor = true;
@@ -135,7 +138,8 @@
             // 
             // numericUpDown_loops
             // 
-            this.numericUpDown_loops.Location = new System.Drawing.Point(255, 15);
+            this.numericUpDown_loops.Location = new System.Drawing.Point(382, 23);
+            this.numericUpDown_loops.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDown_loops.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -147,7 +151,7 @@
             0,
             0});
             this.numericUpDown_loops.Name = "numericUpDown_loops";
-            this.numericUpDown_loops.Size = new System.Drawing.Size(95, 20);
+            this.numericUpDown_loops.Size = new System.Drawing.Size(142, 26);
             this.numericUpDown_loops.TabIndex = 8;
             this.numericUpDown_loops.Value = new decimal(new int[] {
             10,
@@ -158,9 +162,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(211, 17);
+            this.label3.Location = new System.Drawing.Point(316, 26);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 13);
+            this.label3.Size = new System.Drawing.Size(56, 20);
             this.label3.TabIndex = 9;
             this.label3.Text = "loops=";
             // 
@@ -171,25 +176,28 @@
             "Subtraction",
             "Modulo",
             "PrimeFactors"});
-            this.comboBox_Method.Location = new System.Drawing.Point(65, 68);
+            this.comboBox_Method.Location = new System.Drawing.Point(98, 105);
+            this.comboBox_Method.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboBox_Method.Name = "comboBox_Method";
-            this.comboBox_Method.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_Method.Size = new System.Drawing.Size(180, 28);
             this.comboBox_Method.TabIndex = 10;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 71);
+            this.label4.Location = new System.Drawing.Point(24, 109);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(46, 13);
+            this.label4.Size = new System.Drawing.Size(67, 20);
             this.label4.TabIndex = 11;
             this.label4.Text = "Method:";
             // 
             // button_getGCD
             // 
-            this.button_getGCD.Location = new System.Drawing.Point(66, 95);
+            this.button_getGCD.Location = new System.Drawing.Point(99, 146);
+            this.button_getGCD.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button_getGCD.Name = "button_getGCD";
-            this.button_getGCD.Size = new System.Drawing.Size(120, 23);
+            this.button_getGCD.Size = new System.Drawing.Size(180, 35);
             this.button_getGCD.TabIndex = 12;
             this.button_getGCD.Text = "Get GCD";
             this.button_getGCD.UseVisualStyleBackColor = true;
@@ -197,49 +205,25 @@
             // 
             // chart1
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
-            this.chart1.Location = new System.Drawing.Point(369, 15);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(531, 23);
             this.chart1.Name = "chart1";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart1.Series.Add(series2);
-            this.chart1.Size = new System.Drawing.Size(757, 593);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(708, 563);
             this.chart1.TabIndex = 13;
             this.chart1.Text = "chart1";
             // 
-            // diagramComboBox
-            // 
-            this.diagramComboBox.FormattingEnabled = true;
-            this.diagramComboBox.Items.AddRange(new object[] {
-            "CPUTimes vs (a+b)/2",
-            "Steps vs (a+b)/2"});
-            this.diagramComboBox.Location = new System.Drawing.Point(65, 124);
-            this.diagramComboBox.Name = "diagramComboBox";
-            this.diagramComboBox.Size = new System.Drawing.Size(152, 21);
-            this.diagramComboBox.TabIndex = 14;
-            this.diagramComboBox.SelectedIndexChanged += new System.EventHandler(this.diagramComboBox_SelectedIndexChanged);
-            // 
-            // clearD
-            // 
-            this.clearD.Location = new System.Drawing.Point(233, 124);
-            this.clearD.Name = "clearD";
-            this.clearD.Size = new System.Drawing.Size(91, 23);
-            this.clearD.TabIndex = 15;
-            this.clearD.Text = "Clear Diagram";
-            this.clearD.UseVisualStyleBackColor = true;
-            this.clearD.Click += new System.EventHandler(this.clearD_Click);
-            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1138, 645);
-            this.Controls.Add(this.clearD);
-            this.Controls.Add(this.diagramComboBox);
+            this.ClientSize = new System.Drawing.Size(1246, 596);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.button_getGCD);
             this.Controls.Add(this.label4);
@@ -252,6 +236,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numericUpDown_b);
             this.Controls.Add(this.numericUpDown_a);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
             this.Text = "GCD";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_a)).EndInit();
@@ -277,8 +262,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button_getGCD;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.ComboBox diagramComboBox;
-        private System.Windows.Forms.Button clearD;
     }
 }
 

@@ -43,15 +43,12 @@ C:\Jenavaio\HTW\AlgOptim\Progs4Course\EuclideanAlgorithm_TemplateStatsEvalAlgo\E
 C:\Jenavaio\HTW\AlgOptim\Progs4Course\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\obj\Debug\EuclideanAlgorithm.csproj.GenerateResource.Cache
 C:\Jenavaio\HTW\AlgOptim\Progs4Course\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\bin\Debug\EuclideanAlgorithm.exe
 C:\Jenavaio\HTW\AlgOptim\Progs4Course\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\bin\Debug\EuclideanAlgorithm.pdb
-C:\Uni\Visual Studio\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\bin\Debug\EuclideanAlgorithm.exe.config
-C:\Uni\Visual Studio\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\obj\Debug\EuclideanAlgorithm.exe
-C:\Uni\Visual Studio\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\obj\Debug\EuclideanAlgorithm.pdb
-C:\Uni\Visual Studio\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\bin\Debug\EuclideanAlgorithm.exe
-C:\Uni\Visual Studio\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\obj\Debug\EuclideanAlgorithm.csprojResolveAssemblyReference.cache
-C:\Uni\Visual Studio\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\obj\Debug\EuclideanAlgorithm.Form1.resources
-C:\Uni\Visual Studio\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\obj\Debug\EuclideanAlgorithm.Properties.Resources.resources
-C:\Uni\Visual Studio\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\obj\Debug\EuclideanAlgorithm.csproj.GenerateResource.Cache
-C:\Uni\Visual Studio\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\bin\Debug\EuclideanAlgorithm.pdb
-C:\Users\Christian\Downloads\alg_1-master\EuclideanAlgorithm\bin\Debug\EuclideanAlgorithm.exe.config
-C:\Users\Christian\Downloads\alg_1-master\EuclideanAlgorithm\obj\Debug\EuclideanAlgorithm.exe
-C:\Users\Christian\Downloads\alg_1-master\EuclideanAlgorithm\obj\Debug\EuclideanAlgorithm.pdb
+C:\Users\Christian\Downloads\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\bin\Debug\EuclideanAlgorithm.exe.config
+C:\Users\Christian\Downloads\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\obj\Debug\EuclideanAlgorithm.exe
+C:\Users\Christian\Downloads\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\obj\Debug\EuclideanAlgorithm.pdb
+C:\Users\Christian\Downloads\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\bin\Debug\EuclideanAlgorithm.exe
+C:\Users\Christian\Downloads\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\bin\Debug\EuclideanAlgorithm.pdb
+C:\Users\Christian\Downloads\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\obj\Debug\EuclideanAlgorithm.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Downloads\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\obj\Debug\EuclideanAlgorithm.Form1.resources
+C:\Users\Christian\Downloads\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\obj\Debug\EuclideanAlgorithm.Properties.Resources.resources
+C:\Users\Christian\Downloads\EuclideanAlgorithm_TemplateStatsEvalAlgo\EuclideanAlgorithm\obj\Debug\EuclideanAlgorithm.csproj.GenerateResource.Cache
