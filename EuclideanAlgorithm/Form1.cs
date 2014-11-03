@@ -17,6 +17,9 @@ namespace EuclideanAlgorithm
         public static int numIterations;
         private int MIN;
         private int MAX;
+        List<ulong> listAllRandomA = new List<ulong>();
+        List<ulong> listAllRandomB = new List<ulong>();
+        private bool gotRndList = false; 
 
         public Form1()
         {
@@ -26,6 +29,8 @@ namespace EuclideanAlgorithm
             comboBox_count.SelectedIndex = 0; //Steps
             MIN = 10000;
             MAX = 1000000;
+            
+
         }
 
         private void button_getGCD_Click(object sender, EventArgs e)
@@ -149,36 +154,46 @@ namespace EuclideanAlgorithm
         {
             Random rnd = new Random();
 
-            ulong l_a = (ulong)rnd.Next(MIN,MAX);//Convert.ToUInt64(numericUpDown_a.Value);
-            ulong l_b = (ulong)rnd.Next(MIN, MAX);//Convert.ToUInt64(numericUpDown_b.Value);
-
             List<long> listCPUTimes = new List<long>();
             List<long> listStepsTaken = new List<long>();
-
-
+         
             int numOfLoops = (int)numericUpDown_loops.Value;
+            string series = "subtraction";
 
             Stopwatch timer = new Stopwatch();   //other way to initialize: Stopwatch timer = Stopwatch.StartNew();
-
-
-
+            ulong l_a = 0;
+            ulong l_b = 0;
+          
             for (int i = 0; i < numOfLoops; i++)
             {
+                if (!gotRndList)
+                {
+                     l_a = (ulong)rnd.Next(MIN, MAX);
+                     l_b = (ulong)rnd.Next(MIN, MAX);
+                }
+                else if (gotRndList)
+                {
+                     l_a = listAllRandomA[i];//Convert.ToUInt64(numericUpDown_a.Value);
+                     l_b = listAllRandomB[i];//Convert.ToUInt64(numericUpDown_b.Value);
+                }
                 timer.Reset();
                 timer.Start();
 
                 numIterations = 0;
-
+ 
                 switch (comboBox_Method.SelectedIndex)
                 {
                     case 0:
                         getGCDSub(l_a, l_b);
+                        series = "subtraction";
                         break;
                     case 1:
                         getGCDMod(l_a, l_b);
+                        series = "modulo";
                         break;
                     case 2:
                         getGCDPrimeFactorization(l_a, l_b);
+                        series = "prime";
                         break;
                     default:
                         return;
@@ -187,9 +202,16 @@ namespace EuclideanAlgorithm
                 timer.Stop();
                 listCPUTimes.Add(timer.ElapsedTicks);
                 listStepsTaken.Add(numIterations);
+                if (!gotRndList)
+                {
+                    listAllRandomA.Add(l_a);
+                    listAllRandomB.Add(l_b);
+                }
+                textBox_Results.AppendText("\r\n a: " + l_a + ", b:" + l_b );
                 textBox_Results.AppendText("\r\n Iteration " + i.ToString() + ", CPU-time(ticks):" + timer.ElapsedTicks + ", steps taken:"+numIterations);
             }
 
+            gotRndList = true;
             //Get Mean and SD
             double meanCPUTicks = getMean(listCPUTimes);
             double varianceCPUTicks = getVariance(listCPUTimes);
@@ -208,14 +230,15 @@ namespace EuclideanAlgorithm
 			//ToDo: your implementation
             long startHisto = getMinValue(listCPUTimes); //get min value
             long endHisto = getMaxValue(listCPUTimes); //get max value
+            textBox_Results.AppendText("\r\n min_Value:" + startHisto + ",max_Value:"+endHisto);
+          
 
             List<int> histo = getHistogram(startHisto, endHisto, listCPUTimes);
 
+
             //Get Mode
 			//ToDo: your implementation
-
-            
-
+       
             //show normalized histogram, probability density of CPU-time (ticks)
             double[] histoNormalized = getNormalizedHistogram(startHisto, endHisto, listCPUTimes);
             textBox_Results.AppendText("\r\n Normalized histogram:");
@@ -223,8 +246,9 @@ namespace EuclideanAlgorithm
                 textBox_Results.AppendText("\r\n" + i.ToString() + ": " + histoNormalized[i]);
 
             //add data to chart
-            chart1.Series[0].Points.Clear();
-            
+            for (int i = 0; i < listAllRandomA.Count; i++ )
+                chart1.Series[series].Points.AddY((listAllRandomA[i] + listAllRandomB[i]) / 2);
+ 
             //ToDo: your implementation
             double cpuTicksHistoCounter=0;
             
@@ -237,6 +261,7 @@ namespace EuclideanAlgorithm
                 //ToDo: your implementation
             }
         }
+
         private static long getMinValue(List<long> resultset)
         {
             long min = long.MaxValue;
@@ -308,30 +333,30 @@ namespace EuclideanAlgorithm
         public static List<int> getHistogram(double start, double end, List<long> data)
         {
 			//ToDo: your implementation
-            int num_bins = 1;
+            int num_bins = data.Count();
 
             List<int> histo = new List<int>(num_bins);
             int bin_size = (int)(end - start) / num_bins;
 
-            for (int k = 0; k < data.Count; k++)
+            for (int k = 0; k < data.Count(); k++)// over all data
             {
-                for (int i = 0; i > num_bins; i++)
+                for (int i = 0; i > num_bins; i++) // over all bins
                 {
                     if (data[k] >= (start + i * bin_size) && data[k] < (end + (i + 1) * bin_size))
                         histo[i]++;
                 }
             }
-           
+
             return histo;
         }
 
+       
         public static double[] getNormalizedHistogram(double start, double end, List<long> data)
         {
 			//ToDo: your implementation
             int num_bins = (int)Math.Round(Math.Sqrt(data.Count));
 
             double[] histo = new double[num_bins];
-
             
             return histo;
         }
@@ -349,6 +374,7 @@ namespace EuclideanAlgorithm
         private void button1_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
+
             int rndNum = rnd.Next(MIN,MAX);
             numericUpDown_a.Value = rndNum;
 
@@ -357,8 +383,19 @@ namespace EuclideanAlgorithm
         private void button2_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
+
             int rndNum = rnd.Next(MIN, MAX);
             numericUpDown_b.Value = rndNum;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+            chart1.Series.Clear();
+            listAllRandomA.Clear();
+            listAllRandomB.Clear();
+            gotRndList = false;
+            textBox_Results.AppendText("\r\n clear");
         }
 
     }
