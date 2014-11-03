@@ -28,12 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.numericUpDown_a = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown_b = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -50,10 +47,13 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numberoRndNumbers = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_b)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_loops)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numberoRndNumbers)).BeginInit();
             this.SuspendLayout();
             // 
             // numericUpDown_a
@@ -120,18 +120,18 @@
             // 
             // textBox_Results
             // 
-            this.textBox_Results.Location = new System.Drawing.Point(12, 169);
+            this.textBox_Results.Location = new System.Drawing.Point(12, 207);
             this.textBox_Results.Multiline = true;
             this.textBox_Results.Name = "textBox_Results";
             this.textBox_Results.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox_Results.Size = new System.Drawing.Size(338, 211);
+            this.textBox_Results.Size = new System.Drawing.Size(338, 173);
             this.textBox_Results.TabIndex = 6;
             // 
             // button_loops
             // 
-            this.button_loops.Location = new System.Drawing.Point(256, 68);
+            this.button_loops.Location = new System.Drawing.Point(255, 128);
             this.button_loops.Name = "button_loops";
-            this.button_loops.Size = new System.Drawing.Size(94, 59);
+            this.button_loops.Size = new System.Drawing.Size(94, 44);
             this.button_loops.TabIndex = 7;
             this.button_loops.Text = "Get GCD over loops";
             this.button_loops.UseVisualStyleBackColor = true;
@@ -139,7 +139,7 @@
             // 
             // numericUpDown_loops
             // 
-            this.numericUpDown_loops.Location = new System.Drawing.Point(255, 42);
+            this.numericUpDown_loops.Location = new System.Drawing.Point(254, 98);
             this.numericUpDown_loops.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -162,11 +162,12 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(253, 18);
+            this.label3.Location = new System.Drawing.Point(192, 100);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 13);
             this.label3.TabIndex = 9;
             this.label3.Text = "loops=";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // comboBox_Method
             // 
@@ -202,30 +203,18 @@
             // 
             // chart1
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
+            this.chart1.AccessibleName = "";
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(370, 15);
             this.chart1.Margin = new System.Windows.Forms.Padding(2);
             this.chart1.Name = "chart1";
-            series9.ChartArea = "ChartArea1";
-            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series9.Legend = "Legend1";
-            series9.Name = "(a+b)/2";
-            series10.ChartArea = "ChartArea1";
-            series10.Legend = "Legend1";
-            series10.Name = "modulo";
-            series11.ChartArea = "ChartArea1";
-            series11.Legend = "Legend1";
-            series11.Name = "subtraction";
-            series12.ChartArea = "ChartArea1";
-            series12.Legend = "Legend1";
-            series12.Name = "prime";
-            this.chart1.Series.Add(series9);
-            this.chart1.Series.Add(series10);
-            this.chart1.Series.Add(series11);
-            this.chart1.Series.Add(series12);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(456, 366);
             this.chart1.TabIndex = 13;
             this.chart1.Text = "chart1";
@@ -264,7 +253,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(255, 133);
+            this.button3.Location = new System.Drawing.Point(255, 178);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(95, 23);
             this.button3.TabIndex = 17;
@@ -272,11 +261,34 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(192, 76);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(56, 13);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "randNum=";
+            // 
+            // numberoRndNumbers
+            // 
+            this.numberoRndNumbers.Location = new System.Drawing.Point(254, 74);
+            this.numberoRndNumbers.Name = "numberoRndNumbers";
+            this.numberoRndNumbers.Size = new System.Drawing.Size(95, 20);
+            this.numberoRndNumbers.TabIndex = 19;
+            this.numberoRndNumbers.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(831, 387);
+            this.Controls.Add(this.numberoRndNumbers);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -299,6 +311,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_b)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_loops)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numberoRndNumbers)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -322,6 +335,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown numberoRndNumbers;
     }
 }
 
