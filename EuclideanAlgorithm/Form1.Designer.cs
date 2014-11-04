@@ -30,7 +30,6 @@
         {
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.numericUpDown_a = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown_b = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -49,11 +48,17 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.numberoRndNumbers = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownMax = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownMin = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_b)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_loops)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberoRndNumbers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMin)).BeginInit();
             this.SuspendLayout();
             // 
             // numericUpDown_a
@@ -211,11 +216,7 @@
             this.chart1.Location = new System.Drawing.Point(370, 15);
             this.chart1.Margin = new System.Windows.Forms.Padding(2);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(456, 366);
+            this.chart1.Size = new System.Drawing.Size(1005, 366);
             this.chart1.TabIndex = 13;
             this.chart1.Text = "chart1";
             // 
@@ -282,11 +283,69 @@
             0,
             0});
             // 
+            // numericUpDownMax
+            // 
+            this.numericUpDownMax.Location = new System.Drawing.Point(110, 181);
+            this.numericUpDownMax.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.numericUpDownMax.Name = "numericUpDownMax";
+            this.numericUpDownMax.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDownMax.TabIndex = 20;
+            this.numericUpDownMax.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numericUpDownMax.ValueChanged += new System.EventHandler(this.numericUpDownMax_ValueChanged);
+            // 
+            // numericUpDownMin
+            // 
+            this.numericUpDownMin.Location = new System.Drawing.Point(110, 160);
+            this.numericUpDownMin.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.numericUpDownMin.Name = "numericUpDownMin";
+            this.numericUpDownMin.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDownMin.TabIndex = 21;
+            this.numericUpDownMin.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownMin.ValueChanged += new System.EventHandler(this.numericUpDownMin_ValueChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(66, 162);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(33, 13);
+            this.label6.TabIndex = 22;
+            this.label6.Text = "MIN=";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(66, 183);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(36, 13);
+            this.label7.TabIndex = 23;
+            this.label7.Text = "MAX=";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(831, 387);
+            this.ClientSize = new System.Drawing.Size(1386, 387);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.numericUpDownMin);
+            this.Controls.Add(this.numericUpDownMax);
             this.Controls.Add(this.numberoRndNumbers);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.button3);
@@ -312,6 +371,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_loops)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberoRndNumbers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMin)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -337,6 +398,10 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numberoRndNumbers;
+        private System.Windows.Forms.NumericUpDown numericUpDownMax;
+        private System.Windows.Forms.NumericUpDown numericUpDownMin;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }
 

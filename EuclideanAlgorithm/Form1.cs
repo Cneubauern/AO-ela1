@@ -29,8 +29,8 @@ namespace EuclideanAlgorithm
 
             comboBox_Method.SelectedIndex = 0;  //Sub
             comboBox_count.SelectedIndex = 0; //Steps
-            MIN = 10000;
-            MAX = 1000000;
+            MIN = Convert.ToInt32(numericUpDownMin.Value);
+            MAX = Convert.ToInt32(numericUpDownMax.Value);
             
 
         }
@@ -157,16 +157,18 @@ namespace EuclideanAlgorithm
             Random rnd = new Random();
 
             List<long> listCPUTimes = new List<long>();
+            List<double> listCPUTimesAvg = new List<double>();
             List<long> listStepsTaken = new List<long>();
-         
+
             int numOfLoops = (int)numericUpDown_loops.Value;
             int numOfRndNumbers = (int)numberoRndNumbers.Value;
-        //    string series = "subtraction";
+            string series = "subtraction";
 
             Stopwatch timer = new Stopwatch();   //other way to initialize: Stopwatch timer = Stopwatch.StartNew();
+
             ulong l_a = 0;
             ulong l_b = 0;
-            for (int k = 0; k < numOfLoops; k++ )
+            for (int k = 0; k < numOfLoops; k++)
             {
                 for (int i = 0; i < numOfRndNumbers; i++)
                 {
@@ -189,15 +191,15 @@ namespace EuclideanAlgorithm
                     {
                         case 0:
                             getGCDSub(l_a, l_b);
-                            //   series = "subtraction";
+                            series = "subtraction";
                             break;
                         case 1:
                             getGCDMod(l_a, l_b);
-                            //   series = "modulo";
+                            series = "modulo";
                             break;
                         case 2:
                             getGCDPrimeFactorization(l_a, l_b);
-                            //   series = "prime";
+                            series = "prime";
                             break;
                         default:
                             return;
@@ -206,6 +208,7 @@ namespace EuclideanAlgorithm
                     timer.Stop();
                     listCPUTimes.Add(timer.ElapsedTicks);
                     listStepsTaken.Add(numIterations);
+
                     if (!gotRndList)
                     {
                         listAllRandomA.Add(l_a);
@@ -214,73 +217,103 @@ namespace EuclideanAlgorithm
                     }
                     textBox_Results.AppendText("\r\n a: " + l_a + ", b:" + l_b);
                     textBox_Results.AppendText("\r\n Iteration " + i.ToString() + ", CPU-time(ticks):" + timer.ElapsedTicks + ", steps taken:" + numIterations);
+
+                    if (k == 0)
+                    {
+                        foreach (long time in listCPUTimes)
+                        {
+                            listCPUTimesAvg.Add(time);
+                        }
+                    }
+                    else
+                    {
+
+                        listCPUTimesAvg[i] += listCPUTimes[i];
+                    }
+
+                    textBox_Results.AppendText("\r \n Average" + listCPUTimesAvg[i]);
+
                 }
 
-            gotRndList = true;
-            //Get Mean and SD
-            double meanCPUTicks = getMean(listCPUTimes);
-            double varianceCPUTicks = getVariance(listCPUTimes);
-            double standardDeviationCPUTicks = Math.Sqrt(varianceCPUTicks);
+                gotRndList = true;
 
-            textBox_Results.AppendText("\r\n Mean CPU-time(ticks):" + meanCPUTicks);
-            textBox_Results.AppendText("\r\n Variance CPU-time(ticks):" + varianceCPUTicks);
-            textBox_Results.AppendText("\r\n Standard Deviation CPU-time(ticks):" + standardDeviationCPUTicks);
-        }
+            
+                //Get Mean and SD
+                double meanCPUTicks = getMean(listCPUTimes);
+                double varianceCPUTicks = getVariance(listCPUTimes);
+                double standardDeviationCPUTicks = Math.Sqrt(varianceCPUTicks);
 
-            //Get Median
-			//ToDo: your implementation
-            double medianCPUTicks = getMedian(listCPUTimes);
-            textBox_Results.AppendText("\r\n median CPU-time(ticks):" + medianCPUTicks);
+                textBox_Results.AppendText("\r\n Mean CPU-time(ticks):" + meanCPUTicks);
+                textBox_Results.AppendText("\r\n Variance CPU-time(ticks):" + varianceCPUTicks);
+                textBox_Results.AppendText("\r\n Standard Deviation CPU-time(ticks):" + standardDeviationCPUTicks);
 
-            //Get Mode
-            List<long> mode = new List<long>();
-			//ToDo: your implementation
-            switch (comboBox_count.SelectedIndex) { 
-                case 0:
-                    mode = listStepsTaken;
-                    break;
-                case 1:
-                    mode = listCPUTimes;
-                    break;
-                default:
-                    return;
 
+                //Get Median
+                //ToDo: your implementation
+          //      double medianCPUTicks = getMedian(listCPUTimes);
+          //      textBox_Results.AppendText("\r\n median CPU-time(ticks):" + medianCPUTicks);
+
+                //Get Mode
+                //ToDo: your implementation
             }
+                //add data to chart
+                switch (comboBox_count.SelectedIndex)
+                {
+                    case 0:
 
-            //add data to chart
-           
-
-       /*     //Get Histogram            
-			//ToDo: your implementation
-            long startHisto = getMinValue(mode); //get min value
-            long endHisto = getMaxValue(mode); //get max value
-            textBox_Results.AppendText("\r\n min_Value:" + startHisto + ",max_Value:"+endHisto);
+                        if (!chart1.Series.IsUniqueName(series))
+                            chart1.Series.Remove(chart1.Series[series]);
+                        chart1.Series.Add(series);
+                        chart1.Series[series].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+                        for (int i = 0; i < listStepsTaken.Count; i++)
+                            chart1.Series[series].Points.AddXY(listRndAvg[i], listStepsTaken[i]);
+                            break;
+                    case 1:
+                        if (chart1.Series.IsUniqueName(series + "Avg"))
+                        {
+                            chart1.Series.Add(series + "Avg");
+                            chart1.Series[series + "Avg"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+                            chart1.Series.Add(series + "SD");
+                            chart1.Series[series + "SD"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.ErrorBar;
+                        }
+                        for (int i = 0; i < listRndAvg.Count; i++)
+                            chart1.Series[series + "Avg"].Points.AddXY(listRndAvg[i], listCPUTimesAvg[i] / numOfLoops);
+                        break;
+                    default:
+                        return;
+                }
+                /*     //Get Histogram            
+                     //ToDo: your implementation
+                     long startHisto = getMinValue(mode); //get min value
+                     long endHisto = getMaxValue(mode); //get max value
+                     textBox_Results.AppendText("\r\n min_Value:" + startHisto + ",max_Value:"+endHisto);
          
-            //List<int> histo = getHistogram(startHisto, endHisto, listCPUTimes);
-            //textBox_Results.AppendText("\r\n  histogram:");
-            //for (int i = 0; i < histo.Count(); i++)
-            //    textBox_Results.AppendText("\r\n" + i.ToString() + ": " + histo[i]);
+                     //List<int> histo = getHistogram(startHisto, endHisto, listCPUTimes);
+                     //textBox_Results.AppendText("\r\n  histogram:");
+                     //for (int i = 0; i < histo.Count(); i++)
+                     //    textBox_Results.AppendText("\r\n" + i.ToString() + ": " + histo[i]);
 
             
        
-            //show normalized histogram, probability density of CPU-time (ticks)
-            double[] histoNormalized = getNormalizedHistogram(startHisto, endHisto, mode);
-            textBox_Results.AppendText("\r\n Normalized histogram:");
-            for (int i = 0; i < histoNormalized.Count(); i++)
-                textBox_Results.AppendText("\r\n" + i.ToString() + ": " + histoNormalized[i]);
+                     //show normalized histogram, probability density of CPU-time (ticks)
+                     double[] histoNormalized = getNormalizedHistogram(startHisto, endHisto, mode);
+                     textBox_Results.AppendText("\r\n Normalized histogram:");
+                     for (int i = 0; i < histoNormalized.Count(); i++)
+                         textBox_Results.AppendText("\r\n" + i.ToString() + ": " + histoNormalized[i]);
 
           
-            //ToDo: your implementation
-            double cpuTicksHistoCounter=0;
+                     //ToDo: your implementation
+                     double cpuTicksHistoCounter=0;
             
-            foreach (double probCPUTicks in histoNormalized)
-            {
-                //add datapoint X,Y to chart
-                chart1.Series[comboBox_Method.SelectedIndex + 1].Points.AddXY(cpuTicksHistoCounter, probCPUTicks);
+                     foreach (double probCPUTicks in histoNormalized)
+                     {
+                         //add datapoint X,Y to chart
+                         chart1.Series[comboBox_Method.SelectedIndex + 1].Points.AddXY(cpuTicksHistoCounter, probCPUTicks);
 
-                //compute next counter
-                //ToDo: your implementation
-            }*/
+                         //compute next counter
+                         //ToDo: your implementation
+                     }*/
+            
         }
 
         private static long getMinValue(List<long> resultset)
@@ -471,6 +504,17 @@ namespace EuclideanAlgorithm
 
         private void label3_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void numericUpDownMax_ValueChanged(object sender, EventArgs e)
+        {
+            MAX = Convert.ToInt32(numericUpDownMax.Value);
+        }
+
+        private void numericUpDownMin_ValueChanged(object sender, EventArgs e)
+        {
+            MIN = Convert.ToInt32(numericUpDownMin.Value);
 
         }
 
