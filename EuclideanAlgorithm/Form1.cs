@@ -86,52 +86,80 @@ namespace EuclideanAlgorithm
             return a;
         }
 
-        public static List<ulong> getPrimeNumbers(ulong n)
+        public static List<ulong> getPrimeNumbers(ulong value)
         {
             List<ulong> primeNumbers = new List<ulong>();
 
             //ToDo: your implementation
-            for (ulong i = 2; i <= n; i++)
+           List<bool> tmpList = new List<bool>((int)value);
+            tmpList.Add(false);
+            tmpList.Add(false);
+
+            // init sieve List
+            for (int i = 2; i <= (int)value; ++i)
             {
-                numIterations++;
-                while (n % i == 0)
+                tmpList.Add(true);
+            }
+
+            // unmark not prime numbers
+            for (int i = 2; i * i < (int)value; ++i)
+            {
+                if (tmpList[i])
                 {
-                    primeNumbers.Add(i);
-                    n /= i;
+                    for (int j = i * i; j < (int)value; j += i)
+                    {
+                        tmpList[j] = false;
+                    }
                 }
             }
+
+            // add each prime number to the list
+            for (int x = 0; x < tmpList.Count; ++x)
+            {
+                if (tmpList[x])
+                {
+                    primeNumbers.Add((ulong)x);
+                }
+            }
+
             return primeNumbers;
         }
 
         public static ulong getGCDPrimeFactorization(ulong a, ulong b)
         {
             //ToDo: your implementation
-            List<ulong> primeNumbersA = getPrimeNumbers(a);
-            List<ulong> primeNumbersB = getPrimeNumbers(b);
+            List<ulong> primeNumbersA = getPrimeNumbers(Math.Min(a, b));
+            List<ulong> primeNumbersB = getPrimeNumbers(Math.Min(a,b));
             List<ulong> commonFactors = new List<ulong>();
+         
+            ulong tmp_a = a;
+            ulong tmp_b = b;
             foreach (ulong _a in primeNumbersA)
-            {
-                foreach (ulong _b in primeNumbersB)
+            {                    
+                numIterations++;
+                while (tmp_a % _a == 0 & tmp_b % _a == 0)
                 {
-                    numIterations++;
-                    if (_a == _b & !commonFactors.Contains(_a))
-                        commonFactors.Add(_a);
+                    commonFactors.Add(_a);
+                    tmp_a /= _a;
+                    tmp_b /= _a;
                 }
             }
 
             if (!commonFactors.Any())
             {
-                return 0;
+                return 1;
             }
             ulong x = 1;
             foreach (ulong factor in commonFactors)
             {
-                numIterations++;
+               // numIterations++;
                 x *= factor;
             }
+
             return x;
         }
 
+   
         public static ulong getGCDSub(ulong a, ulong b)
         {
             if (a == 0)
@@ -215,23 +243,25 @@ namespace EuclideanAlgorithm
                         listAllRandomB.Add(l_b);
                         listRndAvg.Add((l_a + l_b) / 2);
                     }
-                    textBox_Results.AppendText("\r\n a: " + l_a + ", b:" + l_b);
-                    textBox_Results.AppendText("\r\n Iteration " + i.ToString() + ", CPU-time(ticks):" + timer.ElapsedTicks + ", steps taken:" + numIterations);
+                  
+                    //textBox_Results.AppendText("\r\n a: " + l_a + ", b:" + l_b);
+                    //textBox_Results.AppendText("\r\n Iteration " + i.ToString() + ", CPU-time(ticks):" + timer.ElapsedTicks + ", steps taken:" + numIterations);
 
                     if (k == 0)
                     {
                         foreach (long time in listCPUTimes)
                         {
-                            listCPUTimesAvg.Add(time);
+                            double a = time / numOfLoops;
+                            listCPUTimesAvg.Add(a);
                         }
                     }
                     else
                     {
-
-                        listCPUTimesAvg[i] += listCPUTimes[i];
+                        double b = listCPUTimes[i]/numOfLoops;
+                        listCPUTimesAvg[i] += b;
                     }
 
-                    textBox_Results.AppendText("\r \n Average" + listCPUTimesAvg[i]);
+                  //  textBox_Results.AppendText("\r \n Average" + listCPUTimesAvg[i]);
 
                 }
 
@@ -239,13 +269,13 @@ namespace EuclideanAlgorithm
 
             
                 //Get Mean and SD
-                double meanCPUTicks = getMean(listCPUTimes);
-                double varianceCPUTicks = getVariance(listCPUTimes);
-                double standardDeviationCPUTicks = Math.Sqrt(varianceCPUTicks);
+             //   double meanCPUTicks = getMean(listCPUTimes);
+             //   double varianceCPUTicks = getVariance(listCPUTimes);
+             //   double standardDeviationCPUTicks = Math.Sqrt(varianceCPUTicks);
 
-                textBox_Results.AppendText("\r\n Mean CPU-time(ticks):" + meanCPUTicks);
-                textBox_Results.AppendText("\r\n Variance CPU-time(ticks):" + varianceCPUTicks);
-                textBox_Results.AppendText("\r\n Standard Deviation CPU-time(ticks):" + standardDeviationCPUTicks);
+             //   textBox_Results.AppendText("\r\n Mean CPU-time(ticks):" + meanCPUTicks);
+             //   textBox_Results.AppendText("\r\n Variance CPU-time(ticks):" + varianceCPUTicks);
+             //   textBox_Results.AppendText("\r\n Standard Deviation CPU-time(ticks):" + standardDeviationCPUTicks);
 
 
                 //Get Median
@@ -257,6 +287,8 @@ namespace EuclideanAlgorithm
                 //ToDo: your implementation
             }
                 //add data to chart
+            
+
                 switch (comboBox_count.SelectedIndex)
                 {
                     case 0:
@@ -264,20 +296,26 @@ namespace EuclideanAlgorithm
                         if (!chart1.Series.IsUniqueName(series))
                             chart1.Series.Remove(chart1.Series[series]);
                         chart1.Series.Add(series);
-                        chart1.Series[series].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-                        for (int i = 0; i < listStepsTaken.Count; i++)
+                        chart1.Series[series].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+                        long minimum = getMinValue(listStepsTaken); //get min value
+                        long maximum = getMaxValue(listStepsTaken); //get max value
+                      
+                            for (int i = 0; i < listStepsTaken.Count; i++)
                             chart1.Series[series].Points.AddXY(listRndAvg[i], listStepsTaken[i]);
                             break;
                     case 1:
+                       
                         if (chart1.Series.IsUniqueName(series + "Avg"))
                         {
                             chart1.Series.Add(series + "Avg");
                             chart1.Series[series + "Avg"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
                             chart1.Series.Add(series + "SD");
                             chart1.Series[series + "SD"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.ErrorBar;
+                        } 
+                        for (int i = 1; i < listRndAvg.Count; i++){
+                            chart1.Series[series + "Avg"].Points.AddXY(listRndAvg[i], listCPUTimesAvg[i]);
+                            textBox_Results.AppendText("\r\n AVG:"+listCPUTimesAvg[i]);
                         }
-                        for (int i = 0; i < listRndAvg.Count; i++)
-                            chart1.Series[series + "Avg"].Points.AddXY(listRndAvg[i], listCPUTimesAvg[i] / numOfLoops);
                         break;
                     default:
                         return;
@@ -380,19 +418,7 @@ namespace EuclideanAlgorithm
                 v += (x - m) * (x-m);
             }
                 return v/n;
-           /* ulong maxValue = 0;
-            ulong secondValue = 0;
-
-            foreach (ulong t1 in resultSet)
-            {
-                if (t1 > maxValue)
-                {
-                    secondValue = maxValue;
-                    maxValue = t1;
-                }
-            }
-
-            return maxValue - secondValue;*/
+          
         }
 
         public  List<int> getHistogram(double start, double end, List<long> data)
@@ -495,10 +521,10 @@ namespace EuclideanAlgorithm
         {
 
             chart1.Series.Clear();
-            listAllRandomA.Clear();
-            listAllRandomB.Clear();
+           // listAllRandomA.Clear();
+           // listAllRandomB.Clear();
             listRndAvg.Clear();
-            gotRndList = false;
+         //   gotRndList = false;
             textBox_Results.AppendText("\r\n clear");
         }
 
